@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map type="bomb">
+	<staticgeometry>
+		<object mesh="house.mesh" position="0 0 0"/>
+		<geometry type="box" position="0 0 0" size="1 2 3"/>
+	</staticgeometry>
+	<t_zones>
+		<zone offset="100 0 20" size="-50 -50 -50 50 50 50"/>
+	</t_zones>
+	<ct_zones>
+		<zone offset="-100 0 20" size="-50 -50 -50 50 50 50"/>
+	</ct_zones>
+	<target_zones>
+		<zone offset="-100 200 20" size="-50 -50 -50 50 50 50"/>
+	</target_zones>
+	<hostages>
+		<hostage position="20 0 20"/>
+		<hostage position="20 0 -20"/>
+		<hostage position="-20 0 20"/>
+		<hostage position="-20 0 -20"/>
+	</hostages>
+</map>
