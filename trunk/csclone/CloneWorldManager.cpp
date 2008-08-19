@@ -5,7 +5,7 @@
  *      Author: sa-bu
  */
 
-#include "WorldManager.h"
+#include "CloneWorldManager.h"
 
 template<> WorldManager* Ogre::Singleton<WorldManager>::ms_Singleton = 0;
 WorldManager* WorldManager::getSingletonPtr(void)

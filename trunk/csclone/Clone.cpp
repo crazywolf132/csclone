@@ -7,8 +7,8 @@
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
-//#include <MYGUI/MyGUI.h>
-#include "WorldManager.h"
+#include <MYGUI/MyGUI.h>
+#include "CloneWorldManager.h"
 
 enum PlayerState {
 	cmForceChooce,
@@ -30,7 +30,7 @@ private:
 	OIS::Keyboard*			mKeyboard;
 	OIS::Mouse*				mMouse;
 
-	//MyGUI::Gui*				mGUI;
+	MyGUI::Gui*				mGUI;
 
 	bool 					mExit;
 
@@ -138,7 +138,7 @@ public:
 		if (mKeyboard->isKeyDown(OIS::KC_S) || mKeyboard->isKeyDown(OIS::KC_DOWN))
 			mCamera->moveRelative(Ogre::Vector3(0, 0, evt.timeSinceLastFrame*20));
 
-		//mGUI->injectFrameEntered(evt.timeSinceLastFrame);
+		mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 
 		return true;
 	}
@@ -152,13 +152,14 @@ public:
 		default:
 			break;
 		}
-		//mGUI->injectKeyPress(arg);
+
+		mGUI->injectKeyPress(arg);
 		return true;
 	}
 
 	bool keyReleased(const OIS::KeyEvent &arg)
 	{
-		//mGUI->injectKeyRelease(arg);
+		mGUI->injectKeyRelease(arg);
 		return true;
 	}
 
@@ -169,19 +170,20 @@ public:
 		mCamera->setOrientation(Ogre::Quaternion::IDENTITY);
 		mCamera->yaw(mCameraAngleH*0.1);
 		mCamera->pitch(mCameraAngleV*0.1);
-		//mGUI->injectMouseMove(arg);
+
+		mGUI->injectMouseMove(arg);
 		return true;
 	}
 
 	bool mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 	{
-		//mGUI->injectMousePress(arg, id);
+		mGUI->injectMousePress(arg, id);
 		return true;
 	}
 
 	bool mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 	{
-		//mGUI->injectMouseRelease(arg, id);
+		mGUI->injectMouseRelease(arg, id);
 		return true;
 	}
 
@@ -247,9 +249,9 @@ public:
 
 		windowResized(mWindow);
 //Initializing GUI
-		//Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* MyGUI Initialising");
-		//mGUI = new MyGUI::Gui;
-		//mGUI->initialise(mWindow);
+		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* MyGUI Initialising");
+		mGUI = new MyGUI::Gui;
+		mGUI->initialise(mWindow);
 //Initializing Game
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* Initialising Game ***");
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* CS Clone v0.0");
