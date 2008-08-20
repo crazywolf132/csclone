@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position="376 48 344 328" layer="Back">
+        <Property key="Widget_Caption" value="Resources"/>
+        <Property key="Widget_Show" value="false"/>
+        <Widget type="List" skin="List" position="5 3 328 256" align="ALIGN_STRETCH"/>
+        <Widget type="Button" skin="Button" position="261 267 72 24" align="ALIGN_RIGHT ALIGN_BOTTOM">
+            <Property key="Widget_Caption" value="Cancel"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="181 267 72 24" align="ALIGN_RIGHT ALIGN_BOTTOM">
+            <Property key="Widget_Caption" value="Select"/>
+        </Widget>
+    </Widget>
+    <Widget type="Window" skin="WindowCS" position="8 40 176 312" layer="Back" name="Objects">
+        <Property key="Widget_Caption" value="Objects"/>
+        <Widget type="Button" skin="ButtonSmall" position="5 3 160 24" name="Objects/Static">
+            <Property key="Widget_Caption" value="Static object"/>
+        </Widget>
+        <Widget type="Button" skin="ButtonSmall" position="5 35 160 24" name="Objects/Dynamic">
+            <Property key="Widget_Caption" value="Dynamic object"/>
+        </Widget>
+        <Widget type="Button" skin="ButtonSmall" position="5 67 160 24" name="Objects/Light">
+            <Property key="Widget_Caption" value="Light"/>
+        </Widget>
+        <Widget type="Button" skin="ButtonSmall" position="5 107 160 24" name="Objects/TZone">
+            <Property key="Widget_Caption" value="Terrorists zone"/>
+        </Widget>
+        <Widget type="Button" skin="ButtonSmall" position="5 139 160 24" name="Objects/CTZone">
+            <Property key="Widget_Caption" value="Counter-terrorists zone"/>
+        </Widget>
+        <Widget type="Button" skin="ButtonSmall" position="5 171 160 24" name="Objects/Hostage">
+            <Property key="Widget_Caption" value="Hostage position"/>
+        </Widget>
+        <Widget type="Button" skin="ButtonSmall" position="5 203 160 24" name="Objects/Target">
+            <Property key="Widget_Caption" value="Target zone"/>
+        </Widget>
+        <Widget type="Button" skin="ButtonSmall" position="5 251 160 24" name="Objects/Selector">
+            <Property key="Widget_Caption" value="Selector"/>
+        </Widget>
+    </Widget>
+</MyGUI>
