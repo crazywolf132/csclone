@@ -19,20 +19,20 @@
 	#endif
 	#define RESOURCES_CFG ".\\resources.cfg"
 	#define OGRE_CFG ".\\ogre.cfg"
-	#define CSCLONE_CFG ".\\csclone.cfg"
+	#define EDITOR_CFG ".\\editor.cfg"
 	#define OGRE_LOG ".\\ogre.log"
 #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
 	#if OGRE_DEBUG_MODE == 1
 		#define PLUGINS_CFG "./plugins_linux.cfg"
 		#define RESOURCES_CFG "./resources.cfg"
 		#define OGRE_CFG "./ogre.cfg"
-		#define CSCLONE_CFG "./blockpost.cfg"
+		#define EDITOR_CFG "./editor.cfg"
 		#define OGRE_LOG "./ogre.log"
 	#else
-		#define PLUGINS_CFG "/etc/blockpost/plugins.cfg"
-		#define RESOURCES_CFG "/etc/blockpost/resources.cfg"
-		#define OGRE_CFG "/etc/blockpost/ogre.cfg"
-		#define CSCLONE_CFG "/etc/blockpost/blockpost.cfg"
+		#define PLUGINS_CFG "/etc/csclone/plugins.cfg"
+		#define RESOURCES_CFG "/etc/csclone/resources.cfg"
+		#define OGRE_CFG "/etc/csclone/ogre.cfg"
+		#define EDITOR_CFG "/etc/csclone/editor.cfg"
 		#define OGRE_LOG "/var/log/ogre.log"
 	#endif
 #endif
@@ -51,6 +51,9 @@ private:
 	OIS::Mouse*				mMouse;
 
 	MyGUI::Gui*				mGUI;
+	MyGUI::MenuBarPtr		mMenuBar;
+	MyGUI::PopupMenuPtr		mPopupMenuFile;
+	MyGUI::PopupMenuPtr		mPopupMenuHelp;
 
 	bool 					mExit;
 
@@ -255,11 +258,29 @@ public:
 		mMouse->setEventCallback(this);
 
 		windowResized(mWindow);
-//Initializing GUI
+//Initialising GUI
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* MyGUI Initialising");
 		mGUI = new MyGUI::Gui;
 		mGUI->initialise(mWindow);
 		mGUI->load("editor.layout");
+
+		mMenuBar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar",
+			MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28),
+			MyGUI::ALIGN_TOP | MyGUI::ALIGN_HSTRETCH, "Overlapped");
+
+		mMenuBar->addItem("File");
+		mPopupMenuFile = mMenuBar->getItemMenu(0);
+		mPopupMenuFile->addItem("New");
+		mPopupMenuFile->addItem("Open ...");
+		mPopupMenuFile->addItem("Save");
+		mPopupMenuFile->addItem("Save as ...", false, true);
+		mPopupMenuFile->addItem("Settings", false, true);
+		mPopupMenuFile->addItem("Quit");
+
+		mMenuBar->addItem("Help");
+		mPopupMenuHelp = mMenuBar->getItemMenu(1);
+		mPopupMenuHelp->addItem("Help");
+		mPopupMenuHelp->addItem("About ...");
 
 		return (true);
     }
