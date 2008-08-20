@@ -1,21 +1,13 @@
 /*
- * Clone.cpp
+ * editor.cpp
  *
- *  Created on: 14-Авг-08
+ *  Created on: 20.08.2008
  *      Author: sa-bu
  */
 
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <MyGUI.h>
-#include "CloneWorldManager.h"
-
-enum PlayerState {
-	cmForceChooce,
-	cmBuying,
-	cmPlaying,
-	cmGuest
-};
 
 class Application : public Ogre::FrameListener, public Ogre::WindowEventListener,
 	public OIS::MouseListener, public OIS::KeyListener
@@ -37,6 +29,11 @@ private:
 	Ogre::Radian			mCameraAngleH;
 	Ogre::Radian			mCameraAngleV;
 
+	//объекты
+	std::vector<Ogre::SceneNode*> mStaticNodes;
+	std::vector<Ogre::Entity*> mStaticEnties;
+
+
 	void initResources()
 	{
 		Ogre::ConfigFile cf;
@@ -56,24 +53,6 @@ private:
 					archName, typeName, secName);
 			}
 		}
-	}
-
-	void executeCommand(const Ogre::String& command)
-	{
-		std::vector<Ogre::String> params;
-		params = Ogre::StringUtil::split(command, " ");
-
-		if (params[0] == "map") {
-			WorldManager::getSingleton().loadMap(params[1]);
-			return;
-		}
-
-		if (params[0] == "exit") {
-			mExit = true;
-			return;
-		}
-
-		Ogre::LogManager::getSingleton().logMessage("CS Clone: Unknown command: " + params[0]);
 	}
 
 public:
@@ -197,7 +176,7 @@ public:
 
 		initResources();
 
-        mWindow = mRoot->initialise(true, "CS Clone v0.0");
+        mWindow = mRoot->initialise(true, "CS Clone Editor v0.0");
         Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
 		mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
@@ -252,13 +231,7 @@ public:
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* MyGUI Initialising");
 		mGUI = new MyGUI::Gui;
 		mGUI->initialise(mWindow);
-//Initializing Game
-		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* Initialising Game ***");
-		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* CS Clone v0.0");
-		new WorldManager(mSceneMgr);
-		Ogre::LogManager::getSingletonPtr()->logMessage("*** Game initialised ***");
-
-		WorldManager::getSingleton().loadMap("de_dust.map");
+		mGUI->load("editor.layout");
 
 		return (true);
     }

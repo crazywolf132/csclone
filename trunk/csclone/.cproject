@@ -43,6 +43,7 @@
 <option id="gnu.cpp.compiler.option.other.other.1052756575" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0" valueType="string"/>
 <option id="gnu.cpp.compiler.option.include.paths.14609992" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="/usr/include/OGRE"/>
+<listOptionValue builtIn="false" value="/usr/local/include/MYGUI"/>
 </option>
 <option id="gnu.cpp.compiler.option.preprocessor.def.1761079249" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 <listOptionValue builtIn="false" value="OGRE_GUI_GLX"/>
@@ -62,9 +63,9 @@
 <option id="gnu.cpp.link.option.flags.25642954" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
 <option id="gnu.cpp.link.option.libs.19406605" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 <listOptionValue builtIn="false" value="OgreMain"/>
-<listOptionValue builtIn="false" value="ode"/>
 <listOptionValue builtIn="false" value="OIS"/>
 <listOptionValue builtIn="false" value="mygui"/>
+<listOptionValue builtIn="false" value="ode"/>
 </option>
 <option id="gnu.cpp.link.option.paths.1930940756" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.414429922" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
@@ -1380,6 +1381,10 @@
 <tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.659724597" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release">
 <option id="gnu.cpp.compiler.exe.release.option.optimization.level.1368817960" name="Optimization Level" superClass="gnu.cpp.compiler.exe.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.exe.release.option.debugging.level.80843823" name="Debug Level" superClass="gnu.cpp.compiler.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.option.include.paths.964890825" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+<listOptionValue builtIn="false" value="/usr/include/OGRE"/>
+<listOptionValue builtIn="false" value="/usr/local/include/MYGUI"/>
+</option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.903293935" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.release.286877877" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.release">
@@ -1389,6 +1394,12 @@
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.226583469" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.1205853593" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release">
+<option id="gnu.cpp.link.option.libs.1881087840" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+<listOptionValue builtIn="false" value="OgreMain"/>
+<listOptionValue builtIn="false" value="OIS"/>
+<listOptionValue builtIn="false" value="mygui"/>
+<listOptionValue builtIn="false" value="ode"/>
+</option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.607798916" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
