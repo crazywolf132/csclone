@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "csclone", "csclone\csclone.vcproj", "{C22A4BF0-FA50-4CB9-9B7D-03A7E590FEF6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "editor", "editor\editor.vcproj", "{17B3B8E0-84B3-46A2-915C-A048DECCD750}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C22A4BF0-FA50-4CB9-9B7D-03A7E590FEF6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C22A4BF0-FA50-4CB9-9B7D-03A7E590FEF6}.Debug|Win32.Build.0 = Debug|Win32
+		{C22A4BF0-FA50-4CB9-9B7D-03A7E590FEF6}.Release|Win32.ActiveCfg = Release|Win32
+		{C22A4BF0-FA50-4CB9-9B7D-03A7E590FEF6}.Release|Win32.Build.0 = Release|Win32
+		{17B3B8E0-84B3-46A2-915C-A048DECCD750}.Debug|Win32.ActiveCfg = Debug|Win32
+		{17B3B8E0-84B3-46A2-915C-A048DECCD750}.Debug|Win32.Build.0 = Debug|Win32
+		{17B3B8E0-84B3-46A2-915C-A048DECCD750}.Release|Win32.ActiveCfg = Release|Win32
+		{17B3B8E0-84B3-46A2-915C-A048DECCD750}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

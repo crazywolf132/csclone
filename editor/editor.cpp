@@ -9,6 +9,34 @@
 #include <OIS/OIS.h>
 #include <MyGUI.h>
 
+#define CSCLONE_VERSION "0.0.1"
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#if OGRE_DEBUG_MODE == 1
+		#define PLUGINS_CFG ".\\plugins_win_d.cfg"
+	#else
+		#define PLUGINS_CFG ".\\plugins.cfg"
+	#endif
+	#define RESOURCES_CFG ".\\resources.cfg"
+	#define OGRE_CFG ".\\ogre.cfg"
+	#define CSCLONE_CFG ".\\csclone.cfg"
+	#define OGRE_LOG ".\\ogre.log"
+#elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+	#if OGRE_DEBUG_MODE == 1
+		#define PLUGINS_CFG "./plugins_linux.cfg"
+		#define RESOURCES_CFG "./resources.cfg"
+		#define OGRE_CFG "./ogre.cfg"
+		#define CSCLONE_CFG "./blockpost.cfg"
+		#define OGRE_LOG "./ogre.log"
+	#else
+		#define PLUGINS_CFG "/etc/blockpost/plugins.cfg"
+		#define RESOURCES_CFG "/etc/blockpost/resources.cfg"
+		#define OGRE_CFG "/etc/blockpost/ogre.cfg"
+		#define CSCLONE_CFG "/etc/blockpost/blockpost.cfg"
+		#define OGRE_LOG "/var/log/ogre.log"
+	#endif
+#endif
+
 class Application : public Ogre::FrameListener, public Ogre::WindowEventListener,
 	public OIS::MouseListener, public OIS::KeyListener
 {
@@ -37,7 +65,7 @@ private:
 	void initResources()
 	{
 		Ogre::ConfigFile cf;
-		cf.load("resources.cfg");
+		cf.load(RESOURCES_CFG);
 
 		Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
 		Ogre::String secName, typeName, archName;
@@ -168,7 +196,7 @@ public:
 
     bool initialise()
     {
-		mRoot = new Ogre::Root;
+		mRoot = new Ogre::Root(PLUGINS_CFG, OGRE_CFG, OGRE_LOG);
 
 		if (!mRoot->restoreConfig())
 			if (!mRoot->showConfigDialog())
