@@ -30,10 +30,10 @@
 		#define CSCLONE_CFG "./blockpost.cfg"
 		#define OGRE_LOG "./ogre.log"
 	#else
-		#define PLUGINS_CFG "/etc/blockpost/plugins.cfg"
-		#define RESOURCES_CFG "/etc/blockpost/resources.cfg"
-		#define OGRE_CFG "/etc/blockpost/ogre.cfg"
-		#define CSCLONE_CFG "/etc/blockpost/blockpost.cfg"
+		#define PLUGINS_CFG "/etc/csclone/plugins.cfg"
+		#define RESOURCES_CFG "/etc/csclone/resources.cfg"
+		#define OGRE_CFG "/etc/csclone/ogre.cfg"
+		#define CSCLONE_CFG "/etc/csclone/blockpost.cfg"
 		#define OGRE_LOG "/var/log/ogre.log"
 	#endif
 #endif
