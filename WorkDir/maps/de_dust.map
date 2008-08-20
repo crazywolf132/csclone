@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map type="bomb">
-	<staticgeometry>
-		<object mesh="walls.mesh" position="0 0 0"/>
-		<object mesh="big_box.mesh" position="9 1 0" rotation="45 0 1 0"/>
-		<object mesh="small_box.mesh" position="-5.56 1 -8.66"/>
-		<object mesh="small_box.mesh" position="-1.65 1 9.42"/>
-		<!-- geometry type="box" position="0 0 0" size="1 2 3"/ -->
-	</staticgeometry>
+<map type="bomb" light="0.7 0.6 0.7">
+	<static mesh="walls.mesh" position="0 0 0"/>
+	<static mesh="big_box.mesh" position="9 1 0" rotation="0.92387950 0 0.38268346 0"/>
+	<static mesh="small_box.mesh" position="-5.56 1 -8.66"/>
+	<static mesh="small_box.mesh" position="-1.65 1 9.42"/>
 </map>

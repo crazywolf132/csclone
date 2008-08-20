@@ -86,24 +86,6 @@ private:
 		}
 	}
 
-	void executeCommand(const Ogre::String& command)
-	{
-		std::vector<Ogre::String> params;
-		params = Ogre::StringUtil::split(command, " ");
-
-		if (params[0] == "map") {
-			WorldManager::getSingleton().loadMap(params[1]);
-			return;
-		}
-
-		if (params[0] == "exit") {
-			mExit = true;
-			return;
-		}
-
-		Ogre::LogManager::getSingleton().logMessage("CS Clone: Unknown command: " + params[0]);
-	}
-
 public:
 	Application() : mRoot(0), mWindow(0), mCamera(0),
 		mInputManager(0), mKeyboard(0), mMouse(0), mExit(false),
@@ -225,7 +207,7 @@ public:
 
 		initResources();
 
-        mWindow = mRoot->initialise(true, "CS Clone v0.0");
+        mWindow = mRoot->initialise(true, "CS Clone v"CSCLONE_VERSION);
         Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
 		mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
@@ -280,9 +262,12 @@ public:
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* MyGUI Initialising");
 		mGUI = new MyGUI::Gui;
 		mGUI->initialise(mWindow);
+		mGUI->load("csclone.layout");
+
+		mGUI->hidePointer();
 //Initializing Game
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* Initialising Game ***");
-		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* CS Clone v0.0");
+		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* CS Clone v"CSCLONE_VERSION);
 		new WorldManager(mSceneMgr);
 		Ogre::LogManager::getSingletonPtr()->logMessage("*** Game initialised ***");
 
@@ -290,6 +275,24 @@ public:
 
 		return (true);
     }
+
+	void executeCommand(const Ogre::String& command)
+	{
+		std::vector<Ogre::String> params;
+		params = Ogre::StringUtil::split(command, " ");
+
+		if (params[0] == "map") {
+			WorldManager::getSingleton().loadMap(params[1]);
+			return;
+		}
+
+		if (params[0] == "exit") {
+			mExit = true;
+			return;
+		}
+
+		Ogre::LogManager::getSingleton().logMessage("CS Clone: Unknown command: " + params[0]);
+	}
 
 	void run()
 	{
@@ -308,30 +311,53 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 int main(int argc, char** argv)
 #endif
 {
-    Application app;
+	Application app;
 
-    try {
-        if (!app.initialise())
-            return 0;
-        app.run();
-    } catch(Ogre::Exception& e) {
+	try {
+		if (!app.initialise())
+			return 0;
+		//command line parser
+		Ogre::String command;
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-        MessageBox(NULL, e.getFullDescription().c_str(), "An exception has occurred!", MB_OK|MB_ICONERROR|MB_TASKMODAL);
+//		char* spch = lpCmdLine;
+//		char* pch = lpCmdLine;
+//		while (pch = strchr(pch, '-')) {
+//
+//		}
+#else
+//		int i = 1;
+//		for (int i = 1; i < argc; i++) {
+//			if (argv[i][0] == '-') {
+//				command = &(argv[i][1]);
+//				while (argv[i][0] != '-') {
+//					command += " ";
+//					command += &(argv[i][0]);
+//					i++;
+//				}
+//				app.executeCommand(command);
+//			}
+//		}
+#endif
+
+		app.run();
+	} catch(Ogre::Exception& e) {
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		MessageBox(NULL, e.getFullDescription().c_str(), "An exception has occurred!", MB_OK|MB_ICONERROR|MB_TASKMODAL);
 #else
         std::cerr << "An exception has occurred: " << e.getFullDescription();
 #endif
         return 1;
-    } catch(OIS::Exception& e) {
+	} catch(OIS::Exception& e) {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-        MessageBox(NULL, e.eText, "An exception has occurred!", MB_OK|MB_ICONERROR|MB_TASKMODAL);
+		MessageBox(NULL, e.eText, "An exception has occurred!", MB_OK|MB_ICONERROR|MB_TASKMODAL);
 #else
-        std::cerr << "An exception has occurred: " << e.eText << " at " << e.eFile << "(" <<
-            e.eLine << ")";
+		std::cerr << "An exception has occurred: " << e.eText << " at "
+			<< e.eFile << "(" << e.eLine << ")";
 #endif
-        return 1;
-    }
+		return 1;
+	}
 
-    return 0;
+	return 0;
 }
 
 #ifdef __cplusplus
