@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="StaticText" skin="StaticText" position="600 48 136 16" layer="Back">
-        <Property key="Widget_Caption" value="Terrorists: 0"/>
+        <Property key="Widget_Caption" value="Terrorists:"/>
         <Property key="Widget_Colour" value="#FFFFFF"/>
         <Property key="Widget_AlignText" value="ALIGN_RIGHT ALIGN_VCENTER"/>
+        <Property key="Widget_Show" value="false"/>
     </Widget>
     <Widget type="StaticText" skin="StaticText" position="600 64 136 16" layer="Back">
         <Property key="Widget_Colour" value="#FFFFFF"/>
-        <Property key="Widget_Caption" value="Counter-Terrorists: 0"/>
+        <Property key="Widget_Caption" value="Counter-Terrorists:"/>
         <Property key="Widget_AlignText" value="ALIGN_RIGHT ALIGN_VCENTER"/>
+        <Property key="Widget_Show" value="false"/>
     </Widget>
     <Widget type="StaticText" skin="StaticText" position="8 720 64 40" layer="Back">
         <Property key="Widget_Caption" value="100"/>
@@ -20,14 +22,15 @@
         <Property key="Widget_FontHeight" value="48"/>
         <Property key="Widget_Caption" value="100"/>
     </Widget>
-    <Widget type="StaticText" skin="StaticText" position="448 720 96 40" layer="Back">
+    <Widget type="StaticText" skin="StaticText" position="456 720 96 40" layer="Back">
         <Property key="Widget_FontHeight" value="48"/>
         <Property key="Widget_Caption" value="0:00"/>
         <Property key="Widget_AlignText" value="ALIGN_HCENTER ALIGN_VCENTER"/>
         <Property key="Widget_Colour" value="#999900"/>
     </Widget>
-    <Widget type="Window" skin="WindowC" position="0 600 336 104" layer="Overlapped">
+    <Widget type="Window" skin="WindowC" position="368 272 336 104" align="ALIGN_CENTER" layer="Overlapped">
         <Property key="Widget_Caption" value="Loading"/>
+        <Property key="Widget_Show" value="false"/>
         <Widget type="StaticText" skin="StaticText" position="5 8 317 16" align="ALIGN_HCENTER ALIGN_TOP">
             <Property key="Widget_Caption" value="Loading resources..."/>
         </Widget>
@@ -38,6 +41,7 @@
     </Widget>
     <Widget type="Window" skin="WindowC" position="392 96 312 424" layer="Back">
         <Property key="Widget_Caption" value="Create Server"/>
+        <Property key="Widget_Show" value="false"/>
         <Widget type="Tab" skin="Tab" position="5 3 296 352">
             <Widget type="Sheet" skin="Default" position="8 31 280 313">
                 <Property key="Widget_Caption" value="Server"/>
@@ -95,4 +99,15 @@
             <Property key="Widget_Caption" value="Start"/>
         </Widget>
     </Widget>
+    <Widget type="StaticText" skin="StaticText" position="744 64 40 16" layer="Back">
+        <Property key="Widget_Caption" value="0"/>
+        <Property key="Widget_Colour" value="#FFFFFF"/>
+        <Property key="Widget_Show" value="false"/>
+    </Widget>
+    <Widget type="StaticText" skin="StaticText" position="744 48 40 16" layer="Back">
+        <Property key="Widget_Caption" value="0"/>
+        <Property key="Widget_Colour" value="#FFFFFF"/>
+        <Property key="Widget_Show" value="false"/>
+    </Widget>
+    <Widget type="StaticImage" skin="StaticImage" position="488 320 40 32" layer="Back" name="Cross"/>
 </MyGUI>

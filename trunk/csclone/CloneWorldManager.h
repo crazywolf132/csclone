@@ -1,5 +1,5 @@
 /*
- * WorldManager.h
+ * CloneWorldManager.h
  *
  *  Created on: 16.08.2008
  *      Author: sa-bu
@@ -11,6 +11,8 @@
 #include <Ogre.h>
 #include <ode/ode.h>
 #include "CloneWarrior.h"
+#include "CloneServer.h"
+#include "CloneClient.h"
 
 enum GameType {
 	gtNone,
@@ -50,6 +52,8 @@ private:
 	std::vector<Ogre::Entity*> mStaticEnties;
 	dSpaceID mStaticSpace;
 	std::vector<dGeomID> mStaticGeometries;
+
+	Server* mServer;
 
 public:
 	WorldManager(Ogre::SceneManager* sceneMgr);

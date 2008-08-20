@@ -1,10 +1,11 @@
 /*
- * WorldManager.cpp
+ * CloneWorldManager.cpp
  *
  *  Created on: 16.08.2008
  *      Author: sa-bu
  */
 
+#include <MyGUI_XmlDocument.h>
 #include "CloneWorldManager.h"
 
 template<> WorldManager* Ogre::Singleton<WorldManager>::ms_Singleton = 0;
@@ -20,7 +21,8 @@ WorldManager& WorldManager::getSingleton(void)
 WorldManager::WorldManager(Ogre::SceneManager* sceneMgr)
 	: mGameTime(0), mBuyTime(0), mStartTime(0), mBombTime(0),
 	mTerrorScore(0), mCTerrorScore(0), mRoundNumber(-1), mGameType(gtNone),
-	mSceneMgr(sceneMgr), mWorld(0), mGlobalSpace(0), mStaticSpace(0)
+	mSceneMgr(sceneMgr), mWorld(0), mGlobalSpace(0), mStaticSpace(0),
+	mServer(0)
 {
 	dInitODE();
 	mWorld = dWorldCreate();
@@ -43,7 +45,7 @@ WorldManager::~WorldManager()
 
 bool WorldManager::loadMap(const Ogre::String& mapName)
 {
-	//очистка
+	//cleanup
 	for (std::vector<Ogre::SceneNode*>::iterator inode = mStaticNodes.begin();
 			inode != mStaticNodes.end(); inode++) {
 		mSceneMgr->destroySceneNode((*inode)->getName());
@@ -61,6 +63,14 @@ bool WorldManager::loadMap(const Ogre::String& mapName)
 		dGeomDestroy(*igeom);
 	}
 
+	if (mServer) {
+		delete mServer;
+		mServer = 0;
+	}
+
+	//creating new game and loading new map
+	mServer = new Server("192.168.0.1", 5000);
+
 	mGameTime = 1800;
 	mBuyTime = 60;
 	mStartTime = 10;
@@ -69,43 +79,78 @@ bool WorldManager::loadMap(const Ogre::String& mapName)
 	mCTerrorScore = 0;
 	mRoundNumber = -1;
 
-	//Test map
-	Ogre::Entity* entity;
-	Ogre::SceneNode* node;
-	dGeomID geom;
+	static int name_int = 0;
 
-	//Стены и пол
-	entity = mSceneMgr->createEntity("walls", "walls.mesh");
-	node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	node->attachObject(entity);
-	geom = dCreatePlane(mStaticSpace, 0, 0, 0, 0);
-	mStaticNodes.push_back(node);
-	mStaticEnties.push_back(entity);
-	mStaticGeometries.push_back(geom);
-	//Большой ящик
-	entity = mSceneMgr->createEntity("big_box", "big_box.mesh");
-	node = mSceneMgr->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(9, 1, 0), Ogre::Quaternion(Ogre::Degree(45), Ogre::Vector3(0, 1, 0)));
-	node->attachObject(entity);
-	geom = dCreatePlane(mStaticSpace, 0, 0, 0, 0);
-	mStaticNodes.push_back(node);
-	mStaticEnties.push_back(entity);
-	mStaticGeometries.push_back(geom);
-	//Первый маленький ящик
-	entity = mSceneMgr->createEntity("small_box_01", "small_box.mesh");
-	node = mSceneMgr->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(-5.56, 1, -8.66));
-	node->attachObject(entity);
-	geom = dCreatePlane(mStaticSpace, 0, 0, 0, 0);
-	mStaticNodes.push_back(node);
-	mStaticEnties.push_back(entity);
-	mStaticGeometries.push_back(geom);
-	//Второй маленький ящик
-	entity = mSceneMgr->createEntity("small_box_02", "small_box.mesh");
-	node = mSceneMgr->getRootSceneNode()->createChildSceneNode(Ogre::Vector3(-1.65, 1, 9.42));
-	node->attachObject(entity);
-	geom = dCreatePlane(mStaticSpace, 0, 0, 0, 0);
-	mStaticNodes.push_back(node);
-	mStaticEnties.push_back(entity);
-	mStaticGeometries.push_back(geom);
+	Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(mapName);
+	MyGUI::xml::xmlDocument xml;
+	if (!xml.open(stream))
+		return false;
+	MyGUI::xml::xmlNodePtr root_node = xml.getRoot();
+	if (root_node->getName() != "map")
+		return false;
+
+	MyGUI::xml::xmlNodeIterator inode = root_node->getNodeIterator();
+	while (inode.nextNode()) {
+		if (inode->getName() == "static") {
+			Ogre::String mesh = inode->findAttribute("mesh");
+			Ogre::Entity* entity = mSceneMgr->createEntity(mesh+Ogre::StringConverter::toString(name_int), mesh);
+			Ogre::SceneNode* node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+			node->attachObject(entity);
+			mStaticNodes.push_back(node);
+			mStaticEnties.push_back(entity);
+
+			Ogre::String param;
+			param = inode->findAttribute("position");
+			if (!param.empty())
+				node->setPosition(Ogre::StringConverter::parseVector3(param));
+
+			param = inode->findAttribute("rotation");
+			if (!param.empty())
+				node->setOrientation(Ogre::StringConverter::parseQuaternion(param));
+		} else if (inode->getName() == "geom") {
+			Ogre::String type = inode->findAttribute("type");
+			std::vector<Ogre::String> params = Ogre::StringUtil::split(inode->findAttribute("size"), " ");
+			dGeomID geom;
+
+			if (type == "box") {
+				geom = dCreateBox(mStaticSpace,
+						Ogre::StringConverter::parseReal(params[0]),
+						Ogre::StringConverter::parseReal(params[1]),
+						Ogre::StringConverter::parseReal(params[2])
+					);
+			} else if (type == "sphere") {
+				geom = dCreateSphere(mStaticSpace,
+						Ogre::StringConverter::parseReal(params[0])
+					);
+			} else if (type == "cylinder") {
+				geom = dCreateCylinder(mStaticSpace,
+						Ogre::StringConverter::parseReal(params[0]),
+						Ogre::StringConverter::parseReal(params[1])
+					);
+			} else if (type == "capsule") {
+				geom = dCreateCapsule(mStaticSpace,
+						Ogre::StringConverter::parseReal(params[0]),
+						Ogre::StringConverter::parseReal(params[1])
+					);
+			} else if (type == "plane") {
+				geom = dCreatePlane(mStaticSpace,
+						Ogre::StringConverter::parseReal(params[0]),
+						Ogre::StringConverter::parseReal(params[1]),
+						Ogre::StringConverter::parseReal(params[2]),
+						Ogre::StringConverter::parseReal(params[3])
+					);
+			} else {
+				return false;
+			}
+
+			mStaticGeometries.push_back(geom);
+		} else {
+			return false;
+		}
+
+		name_int++;
+	}
+
 
 	Ogre::Light* light = mSceneMgr->createLight("l");
 	light->setPosition(0, 50, 0);
