@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib ode_d.lib"
+				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib ode_d.lib ws2_32.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib ode.lib"
+				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib ode.lib ws2_32.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -175,6 +175,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Client.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Clone.cpp"
 				>
 			</File>
@@ -183,7 +187,23 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CloneWorldManager.cpp"
+				RelativePath=".\Server.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Socket.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WorldManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WorldManagerClient.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WorldManagerServer.cpp"
 				>
 			</File>
 		</Filter>
@@ -193,11 +213,31 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Client.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CloneWarrior.h"
 				>
 			</File>
 			<File
-				RelativePath=".\CloneWorldManager.h"
+				RelativePath=".\Server.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Socket.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WorldManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WorldManagerClient.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WorldManagerServer.h"
 				>
 			</File>
 		</Filter>
