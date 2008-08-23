@@ -8,7 +8,8 @@
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <MyGUI.h>
-#include "CloneWorldManager.h"
+#include "Server.h"
+#include "Client.h"
 
 #define CSCLONE_VERSION "0.0.1"
 
@@ -65,6 +66,9 @@ private:
 	Ogre::Radian			mCameraAngleH;
 	Ogre::Radian			mCameraAngleV;
 
+	Server*					mServer;
+	Client*					mClient;
+
 	void initResources()
 	{
 		Ogre::ConfigFile cf;
@@ -89,13 +93,15 @@ private:
 public:
 	Application() : mRoot(0), mWindow(0), mCamera(0),
 		mInputManager(0), mKeyboard(0), mMouse(0), mExit(false),
-		mCameraAngleH(0), mCameraAngleV(0)
+		mCameraAngleH(0), mCameraAngleV(0), mServer(0), mClient(0)
 	{
 
 	}
 
 	~Application()
 	{
+		Socket::uninitialise();
+
 		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 
 		if (mRoot) {
@@ -148,6 +154,11 @@ public:
 		if (mKeyboard->isKeyDown(OIS::KC_S) || mKeyboard->isKeyDown(OIS::KC_DOWN))
 			mCamera->moveRelative(Ogre::Vector3(0, 0, evt.timeSinceLastFrame*20));
 
+		if (mServer)
+			mServer->checkRecv();
+		if (mClient)
+			mClient->checkRecv();
+
 		mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 
 		return true;
@@ -158,6 +169,12 @@ public:
 		switch (arg.key) {
 		case OIS::KC_ESCAPE:
 			mExit = true;
+			break;
+		case OIS::KC_SPACE:
+			mServer->sendChatMessageToAll("Hello, LAN!!!");
+			break;
+		case OIS::KC_RETURN:
+			mClient->sendFindServer();
 			break;
 		default:
 			break;
@@ -263,16 +280,21 @@ public:
 		mGUI = new MyGUI::Gui;
 		mGUI->initialise(mWindow);
 		mGUI->load("csclone.layout");
-
-		mGUI->hidePointer();
+		MyGUI::MultiListPtr list = mGUI->findWidget<MyGUI::MultiList>("Servers/List");
+		list->addColumn(175, "Name");
+		list->addColumn(85, "Map");
+		list->addColumn(70, "Players");
+		list->addColumn(55, "Latency");
 //Initializing Game
+		Socket::initialise();
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* Initialising Game ***");
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* CS Clone v"CSCLONE_VERSION);
-		new WorldManager(mSceneMgr);
+		mServer = new Server("testServer");
+		mClient = new Client(new WorldManagerClient(mSceneMgr));
 		Ogre::LogManager::getSingletonPtr()->logMessage("*** Game initialised ***");
 
-		WorldManager::getSingleton().loadMap("de_dust.map");
-
+		mClient->loadMap("test.map");
+		mClient->sendFindServer();
 		return (true);
     }
 
@@ -282,7 +304,7 @@ public:
 		params = Ogre::StringUtil::split(command, " ");
 
 		if (params[0] == "map") {
-			WorldManager::getSingleton().loadMap(params[1]);
+			mClient->loadMap(params[1]);
 			return;
 		}
 
