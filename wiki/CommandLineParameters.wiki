@@ -1,0 +1,4 @@
+= Command line parameters =
+
+  * _*-map* map_name_ - server loads specified map
+  * _*-server* host:port_ - client connects to that server
