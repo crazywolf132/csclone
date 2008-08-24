@@ -1,3 +1,5 @@
+#summary Command line parameters
+
 = Command line parameters =
 
   * _*-map* map_name_ - server loads specified map
