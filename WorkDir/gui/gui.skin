@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin">
+    <Skin name = "StaticText" size = "16 16">
+        <Property key="FontName" value = "Font" />
+        <Property key="FontHeight" value = "12" />
+        <Property key="AlignText" value = "ALIGN_DEFAULT" />
+        <Property key="Colour" value = "#FFFFFF" />
+        
+        <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH"/>
+    </Skin>
+
+    <Skin name = "EditClient" size = "10 10">
+        <Property key="FontName" value = "Font" />
+        <Property key="FontHeight" value = "12" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "#FFFFFF" />
+        <Property key="Pointer" value = "beam" />
+        <BasisSkin type="EditText" offset = "0 0 10 10" align = "ALIGN_STRETCH">
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "Button" size = "84 24" texture = "gui.png">
+        <Property key="FontName" value = "Font"/>
+        <Property key="FontHeight" value = "12"/>
+        <Property key="AlignText" value = "ALIGN_CENTER"/>
+        <Property key="Colour" value = "#FFFFFF"/>
+        
+        <BasisSkin type="SubSkin" offset = "0 0 3 24" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "2 2 3 24"/>
+            <State name="normal" offset = "2 2 3 24"/>
+            <State name="active" offset = "2 2 3 24"/>
+            <State name="pressed" offset = "2 28 3 24"/>
+            <State name="select" offset = "2 28 3 24"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 78 24" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "5 2 78 24"/>
+            <State name="normal" offset = "5 2 78 24"/>
+            <State name="active" offset = "5 2 78 24"/>
+            <State name="pressed" offset = "5 28 78 24"/>
+            <State name="select" offset = "5 28 78 24"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "81 0 3 24" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "83 2 3 24"/>
+            <State name="normal" offset = "83 2 3 24"/>
+            <State name="active" offset = "83 2 3 24"/>
+            <State name="pressed" offset = "83 28 3 24"/>
+            <State name="select" offset = "83 28 3 24"/>
+        </BasisSkin>
+        <BasisSkin type="SimpleText" offset = "0 0 84 24" align = "ALIGN_STRETCH">
+            <State name="disable"/>
+            <State name="normal"/>
+            <State name="active"/>
+            <State name="pressed" shift="true"/>
+            <State name="select" shift="true"/>
+        </BasisSkin>
+    </Skin>
+	
+    <Skin name = "CheckBox" size = "100 12" texture = "gui.png">
+        <Property key="FontName" value = "Font" />
+        <Property key="FontHeight" value = "12" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "#FFFFFF" />
+
+        <BasisSkin type="SubSkin" offset = "0 0 12 12" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "2 80 12 12"/>
+            <State name="normal" offset = "2 80 12 12"/>
+            <State name="active" offset = "2 80 12 12"/>
+            <State name="pressed" offset = "15 80 12 12"/>
+            <State name="select" offset = "15 80 12 12"/>
+        </BasisSkin>
+        
+        <BasisSkin type="SimpleText" offset = "15 0 85 12" align = "ALIGN_STRETCH">
+            <State name="disable" colour="0.87 0.87 0.87"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "MainMenuText" size = "16 16">
+        <Property key="FontName" value = "MenuFont" />
+        <Property key="FontHeight" value = "16" />
+        <Property key="AlignText" value = "ALIGN_DEFAULT" />
+        <Property key="Colour" value = "#FFFFFF" />
+        
+        <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "ALIGN_STRETCH">
+		    <State name="disable" colour="#666666"/>
+            <State name="normal" colour="#FFFFFF"/>
+            <State name="active" colour="#CCCCCC"/>
+            <State name="pressed" colour="#999999"/>
+            <State name="select" colour="#999999"/>
+		</BasisSkin>
+    </Skin>
+
+    <Skin name = "Edit" size = "84 24" texture = "gui.png" >
+        <Property key="FontName" value = "Font" />
+        <Property key="FontHeight" value = "12" />
+        <Property key="NeedKey" value = "true" />
+        <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
+        <Property key="Colour" value = "#FFFFFF" />
+
+        <Child type="Widget" skin="EditClient" offset = "3 1 78 22" align = "ALIGN_STRETCH" name = "Client"/>
+
+        <BasisSkin type="SubSkin" offset = "0 0 3 24" align = "ALIGN_LEFT ALIGN_VSTRETCH">
+            <State name="disable" offset = "2 54 3 24"/>
+            <State name="normal" offset = "2 54 3 24"/>
+            <State name="active" offset = "2 54 3 24"/>
+            <State name="pressed" offset = "2 54 3 24"/>
+            <State name="select" offset = "2 54 3 24"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "3 0 78 24" align = "ALIGN_STRETCH">
+            <State name="disable" offset = "5 54 78 24"/>
+            <State name="normal" offset = "5 54 78 24"/>
+            <State name="active" offset = "5 54 78 24"/>
+            <State name="pressed" offset = "5 54 78 24"/>
+            <State name="select" offset = "5 54 78 24"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "81 0 3 24" align = "ALIGN_RIGHT ALIGN_VSTRETCH">
+            <State name="disable" offset = "83 54 3 24"/>
+            <State name="normal" offset = "83 54 3 24"/>
+            <State name="active" offset = "83 54 3 24"/>
+            <State name="pressed" offset = "83 54 3 24"/>
+            <State name="select" offset = "83 54 3 24"/>
+        </BasisSkin>
+        <BasisSkin type="EditText" offset = "3 1 78 22" align = "ALIGN_STRETCH">
+        </BasisSkin>
+    </Skin>
+
+
+</MyGUI>
+

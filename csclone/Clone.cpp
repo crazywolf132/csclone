@@ -90,6 +90,53 @@ private:
 		}
 	}
 
+	void notifyResumeGame(MyGUI::WidgetPtr sender)
+	{
+	}
+
+	void notifyDisconnect(MyGUI::WidgetPtr sender)
+	{
+	}
+
+	void notifyPlayerList(MyGUI::WidgetPtr sender)
+	{
+	}
+
+	void notifyNewGame(MyGUI::WidgetPtr sender)
+	{
+		mGUI->findWidgetT("Create")->show();
+	}
+
+	void notifyFindServers(MyGUI::WidgetPtr sender)
+	{
+		mGUI->findWidgetT("Servers")->show();
+		mClient->sendFindServer();
+	}
+
+	void notifyOptions(MyGUI::WidgetPtr sender)
+	{
+	}
+
+	void notifyExit(MyGUI::WidgetPtr sender)
+	{
+	}
+
+	void notifyServersClose(MyGUI::WidgetPtr sender, const std::string& name)
+	{
+		if (name == "close")
+			sender->hide();
+	}
+
+	void notifyServersConnect(MyGUI::WidgetPtr sender)
+	{
+		MyGUI::MultiListPtr list = mGUI->findWidget<MyGUI::MultiList>("Servers/List");
+		size_t sel = list->getItemSelect();
+		if (sel == MyGUI::ITEM_NONE)
+			return;
+		const Ogre::UTFString& serverName = list->getItem(sel);
+		mClient->connectToServer(serverName);
+	}
+
 public:
 	Application() : mRoot(0), mWindow(0), mCamera(0),
 		mInputManager(0), mKeyboard(0), mMouse(0), mExit(false),
@@ -109,6 +156,21 @@ public:
 				mRoot->destroySceneManager(mSceneMgr);
 			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 			delete mRoot;
+		}
+	}
+
+	void parseCommandLine(const char* cmdLine)
+	{
+	}
+
+	void commandLine(int argc, char** argv)
+	{
+		int icmd = 1;
+		while (icmd < argc) {
+			if (strcmp(argv[icmd], "-map") == 0) { //server load map
+				mServer->loadMap(argv[icmd+1]);
+			} else if (strcmp(argv[icmd], "-server") == 0) { //client connect to server
+			}
 		}
 	}
 
@@ -159,6 +221,20 @@ public:
 		if (mClient)
 			mClient->checkRecv();
 
+		//check exists servers
+		if (mGUI->findWidgetT("Servers")->isShow()) {
+			MyGUI::MultiListPtr list = mGUI->findWidget<MyGUI::MultiList>("Servers/List");
+			const Client::ServerInfoMap& servs = mClient->getServerList();
+			if (list->getItemCount() != servs.size()) {
+				list->deleteAllItems();
+				for (Client::ServerInfoMap::const_iterator iserv = servs.begin(); iserv != servs.end(); iserv++) {
+					list->addItem(iserv->first);
+					list->setSubItem(1, list->getItemCount()-1, iserv->second.mapName);
+					list->setSubItem(2, list->getItemCount()-1, Ogre::StringConverter::toString(iserv->second.numPlayers) + "/" + Ogre::StringConverter::toString(iserv->second.maxPlayers));
+				}
+			}
+		}
+
 		mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 
 		return true;
@@ -170,11 +246,7 @@ public:
 		case OIS::KC_ESCAPE:
 			mExit = true;
 			break;
-		case OIS::KC_SPACE:
-			mServer->sendChatMessageToAll("Hello, LAN!!!");
-			break;
-		case OIS::KC_RETURN:
-			mClient->sendFindServer();
+		case OIS::KC_GRAVE:
 			break;
 		default:
 			break;
@@ -278,24 +350,68 @@ public:
 //Initializing GUI
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* MyGUI Initialising");
 		mGUI = new MyGUI::Gui;
-		mGUI->initialise(mWindow);
-		mGUI->load("csclone.layout");
+		mGUI->initialise(mWindow, "csclone.gui");
+
 		MyGUI::MultiListPtr list = mGUI->findWidget<MyGUI::MultiList>("Servers/List");
 		list->addColumn(175, "Name");
 		list->addColumn(85, "Map");
 		list->addColumn(70, "Players");
 		list->addColumn(55, "Latency");
+		//main menu
+		MyGUI::ButtonPtr btn;
+		btn = mGUI->createWidget<MyGUI::Button>("MainMenuText",
+			MyGUI::IntCoord(20, mGUI->getViewHeight()-50, 100, 24),
+			MyGUI::ALIGN_DEFAULT, "Back", "MainMenu/Exit");
+		btn->setCaption("Exit");
+		btn->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyExit);
+		btn = mGUI->createWidget<MyGUI::Button>("MainMenuText",
+			MyGUI::IntCoord(20, mGUI->getViewHeight()-90, 100, 24),
+			MyGUI::ALIGN_DEFAULT, "Back", "MainMenu/Options");
+		btn->setCaption("Options");
+		btn->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyOptions);
+		btn = mGUI->createWidget<MyGUI::Button>("MainMenuText",
+			MyGUI::IntCoord(20, mGUI->getViewHeight()-110, 100, 24),
+			MyGUI::ALIGN_DEFAULT, "Back", "MainMenu/Find");
+		btn->setCaption("Find Servers");
+		btn->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyFindServers);
+		btn = mGUI->createWidget<MyGUI::Button>("MainMenuText",
+			MyGUI::IntCoord(20, mGUI->getViewHeight()-130, 100, 24),
+			MyGUI::ALIGN_DEFAULT, "Back", "MainMenu/New");
+		btn->setCaption("New Game");
+		btn->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyNewGame);
+		btn = mGUI->createWidget<MyGUI::Button>("MainMenuText",
+			MyGUI::IntCoord(20, mGUI->getViewHeight()-170, 100, 24),
+			MyGUI::ALIGN_DEFAULT, "Back", "MainMenu/Players");
+		btn->setCaption("Player list");
+		btn->hide();
+		btn->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyPlayerList);
+		btn = mGUI->createWidget<MyGUI::Button>("MainMenuText",
+			MyGUI::IntCoord(20, mGUI->getViewHeight()-190, 100, 24),
+			MyGUI::ALIGN_DEFAULT, "Back", "MainMenu/Disconnect");
+		btn->setCaption("Disconnect");
+		btn->hide();
+		btn->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyDisconnect);
+		btn = mGUI->createWidget<MyGUI::Button>("MainMenuText",
+			MyGUI::IntCoord(20, mGUI->getViewHeight()-210, 100, 24),
+			MyGUI::ALIGN_DEFAULT, "Back", "MainMenu/Resume");
+		btn->setCaption("Resume game");
+		btn->hide();
+		btn->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyResumeGame);
+		//servers dialog
+		mGUI->findWidget<MyGUI::Window>("Servers")->eventWindowButtonPressed = MyGUI::newDelegate(this, &Application::notifyServersClose);
+		mGUI->findWidget<MyGUI::Button>("Servers/Connect")->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyServersConnect);
+		//create dialog
+		//mGUI->findWidget<MyGUI::Window>("Create/Cancel")->eventWindowButtonPressed = MyGUI::newDelegate(this, &Application::notifyCreateCancel);
 //Initializing Game
 		Socket::initialise();
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* Initialising Game ***");
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* CS Clone v"CSCLONE_VERSION);
 		mServer = new Server("testServer");
+		mServer->loadMap("test.map");
 		mClient = new Client(new WorldManagerClient(mSceneMgr));
 		Ogre::LogManager::getSingletonPtr()->logMessage("*** Game initialised ***");
 
-		mClient->loadMap("test.map");
-		mClient->sendFindServer();
-		return (true);
+		return true;
     }
 
 	void executeCommand(const Ogre::String& command)
@@ -304,7 +420,7 @@ public:
 		params = Ogre::StringUtil::split(command, " ");
 
 		if (params[0] == "map") {
-			mClient->loadMap(params[1]);
+			mServer->loadMap(params[1]);
 			return;
 		}
 
@@ -341,26 +457,10 @@ int main(int argc, char** argv)
 		//command line parser
 		Ogre::String command;
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-//		char* spch = lpCmdLine;
-//		char* pch = lpCmdLine;
-//		while (pch = strchr(pch, '-')) {
-//
-//		}
+		app.parseCommandLine(lpCmdLine);
 #else
-//		int i = 1;
-//		for (int i = 1; i < argc; i++) {
-//			if (argv[i][0] == '-') {
-//				command = &(argv[i][1]);
-//				while (argv[i][0] != '-') {
-//					command += " ";
-//					command += &(argv[i][0]);
-//					i++;
-//				}
-//				app.executeCommand(command);
-//			}
-//		}
+		app.commandLine(argc, argv);
 #endif
-
 		app.run();
 	} catch(Ogre::Exception& e) {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32

@@ -4,7 +4,7 @@
 
     <Skin name = "CheckBox" size = "100 21" texture = "core_new.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -22,7 +22,7 @@
     
     <Skin name = "RadioBox" size = "100 21" texture = "core_new.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -40,7 +40,7 @@
     
     <Skin name = "ButtonSmall" size = "150 26" texture = "core_new.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -77,7 +77,7 @@
     
     <Skin name = "Button" size = "150 26" texture = "core_new.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -115,7 +115,7 @@
 
     <Skin name = "Edit" size = "150 26" texture = "core_new.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -157,7 +157,7 @@
     
     <Skin name = "ComboBox" size = "150 26" texture = "core_new.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -195,7 +195,7 @@
     
     <Skin name = "EditorComboBox" size = "150 26" texture = "core_new.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="NeedKey" value = "true" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
@@ -263,7 +263,7 @@
     
     <Skin name = "TabButton" size = "51 28" texture = "core_new.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -383,7 +383,7 @@
 
     <Skin name = "WindowCaption" size = "68 28" texture = "core_new.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -404,7 +404,7 @@
  
     <Skin name = "WindowCaption2" size = "41 28" texture = "core_new.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -666,7 +666,7 @@
 
     <Skin name = "MenuBarButton" size = "33 24" texture = "core_new.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
         
@@ -738,7 +738,7 @@
 
     <Skin name = "PanelSmall" size = "8 8" texture = "core_new.png" align = "ALIGN_LEFT ALIGN_TOP">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_CENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -850,7 +850,7 @@
 
     <Skin name = "MultiListButton" size = "150 26" texture = "core_new.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -899,7 +899,7 @@
 
     <Skin name = "ButtonSmall2" size = "29 21" texture = "core_new.png">
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_HCENTER ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -939,7 +939,7 @@
 
     <Skin name = "PopupMenuLine" size = "5 5" texture = "core.png" >
         <Property key="FontName" value = "MyGUI_CoreFont.18" />
-        <Property key="FontHeight" value = "18" />
+        <Property key="FontHeight" value = "12" />
         <Property key="AlignText" value = "ALIGN_LEFT ALIGN_VCENTER" />
         <Property key="Colour" value = "0 0 0" />
 
@@ -1219,6 +1219,14 @@
             <State name="normal" offset = "412 132 79 37"/>
         </_BasisSkin>
     </Skin>
+
+    <Skin name = "ScrollViewEmpty" size = "30 30" texture = "core_new.png" align = "ALIGN_LEFT ALIGN_TOP">
+        <Property key="NeedKey" value = "true" />
+
+        <Child type="VScroll" skin="VScroll" offset = "15 0 15 15" align = "ALIGN_RIGHT ALIGN_VSTRETCH" name = "VScroll"/>
+        <Child type="HScroll" skin="HScroll" offset = "0 15 15 15" align = "ALIGN_HSTRETCH ALIGN_BOTTOM" name = "HScroll"/>
+        <Child type="Widget" skin="Default" offset = "0 0 15 15" align = "ALIGN_STRETCH" name = "Client"/>
+    </Skin>    
     
 </MyGUI>
 

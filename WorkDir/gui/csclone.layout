@@ -41,7 +41,7 @@
     </Widget>
     <Widget type="Window" skin="WindowC" position="40 48 312 424" layer="Overlapped" name="Create">
         <Property key="Widget_Caption" value="Create Server"/>
-        <Property key="Widget_Show" value="true"/>
+        <Property key="Widget_Show" value="false"/>
         <Widget type="Tab" skin="Tab" position="5 3 296 352">
             <Property key="Tab_SmoothShow" value="false"/>
             <Widget type="Sheet" skin="Default" position="8 31 280 313">
@@ -54,7 +54,7 @@
                     <Property key="ComboBox_ModeDrop" value="true"/>
                 </Widget>
                 <Widget type="Widget" skin="Separator1" position="8 41 264 8"/>
-                <Widget type="Button" skin="CheckBox" position="8 57 264 24" name="Create/EnableBots">
+                <Widget type="Button" skin="CheckBox" position="8 57 264 12" name="Create/EnableBots">
                     <Property key="Widget_Caption" value="Include CPU players (Bots) in this game"/>
                 </Widget>
                 <Widget type="StaticText" skin="StaticText" position="32 81 152 24">
@@ -82,7 +82,7 @@
                     <Property key="Widget_Caption" value="Expert"/>
                 </Widget>
                 <Widget type="Widget" skin="Separator1" position="8 249 264 8"/>
-                <Widget type="Button" skin="CheckBox" position="8 265 120 24">
+                <Widget type="Button" skin="CheckBox" position="8 265 120 12">
                     <Property key="Widget_Caption" value="Enable Tutor"/>
                 </Widget>
             </Widget>
@@ -111,6 +111,7 @@
         <Property key="Widget_Show" value="false"/>
     </Widget>
     <Widget type="Window" skin="WindowCSX" position="304 64 440 328" layer="Overlapped" name="Servers">
+        <Property key="Widget_Show" value="false"/>
         <Property key="Widget_Caption" value="Servers"/>
         <Widget type="Tab" skin="Tab" position="5 3 424 256" align="ALIGN_STRETCH">
             <Property key="Tab_SmoothShow" value="false"/>
@@ -124,11 +125,8 @@
                 <Property key="Widget_Caption" value="LAN"/>
             </Widget>
         </Widget>
-        <Widget type="Button" skin="Button" position="341 267 88 24" align="ALIGN_RIGHT ALIGN_BOTTOM" name="Servers/Cancel">
-            <Property key="Widget_Caption" value="Cancel"/>
-        </Widget>
-        <Widget type="Button" skin="Button" position="245 267 88 24" align="ALIGN_RIGHT ALIGN_BOTTOM" name="Servers/Join">
-            <Property key="Widget_Caption" value="Join"/>
+        <Widget type="Button" skin="Button" position="341 267 88 24" align="ALIGN_RIGHT ALIGN_BOTTOM" name="Servers/Connect">
+            <Property key="Widget_Caption" value="Connect"/>
         </Widget>
         <Widget type="MultiList" skin="MultiList" position="13 35 408 216" align="ALIGN_STRETCH" name="Servers/List"/>
     </Widget>
