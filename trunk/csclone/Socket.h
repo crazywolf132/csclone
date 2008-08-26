@@ -24,19 +24,22 @@
 #include <fcntl.h>
 #endif
 
+#define BUFFER_SIZE 128
 #define DEFAULT_PORT 27015
 
 enum NetMessageType {
 	nmtNone,
 	//server send
 	nmtPing,
-	nmtFindClient,
+	nmtLoadMap,
 	nmtChatMessage,
 	nmtRadioMessage,
-	nmtMapInfo,
+	nmtServerInfo,
+	nmtKick,
 	//client send
 	nmtPong,
 	nmtFindServer,
+	nmtConnect,
 	nmtChatMessageToAll,
 	nmtChatMessageToForce,
 };
@@ -61,10 +64,6 @@ public:
 	bool sendTo(const void* buffer, int length, int flags, const struct sockaddr* to, int tolen);
 	bool sendTo(const void* buffer, int length, int flags, const char* host, unsigned short port);
 	int recvFrom(void* buf, int flags, struct sockaddr* from, int* fromlen);
-
-	void sendBegin(const char* host, unsigned short port, NetMessageType type);
-	void sendNext(void* buffer, int length);
-	void sendEnd();
 
 	static void checkError();
 	static void initialise();

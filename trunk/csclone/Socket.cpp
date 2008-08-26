@@ -51,6 +51,9 @@ void Socket::checkError()
 	case EPROTONOSUPPORT:
 		errmsg += "Protocol not supported";
 		break;
+    case EAFNOSUPPORT:
+		errmsg += "Address family not supported by protocol";
+        break;
 	case EADDRNOTAVAIL:
 		errmsg += "Cannot assign requested address";
 		break;

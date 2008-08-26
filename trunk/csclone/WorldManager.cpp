@@ -19,13 +19,6 @@ WorldManager::~WorldManager()
 
 bool WorldManager::loadMap(const Ogre::String& mapName)
 {
-	//Socket socket;
-	//socket.bind("169.256.101.92", 27015);
-	//socket.bind("192.168.1.3", 27015);
-	//socket.bind("127.0.0.1", 27015);
-
-	//mServer = new Server("192.168.0.1", 5000);
-
 	mGameTime = 1800;
 	mBuyTime = 60;
 	mStartTime = 10;

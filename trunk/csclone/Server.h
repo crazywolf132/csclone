@@ -14,24 +14,31 @@
 class Server
 {
 protected:
-	struct Client {
-		Socket socket;
-		std::string name;
+	struct ClientInfo {
+		//Warrior warrior;
+		sockaddr_in address;
 	};
-
-	std::string mName;
+	
+	typedef std::map<Ogre::UTFString, ClientInfo> ClientInfoMap;
 
 	Socket mSocket;
-	WorldManagerServer mWorldManagerServer;
+	WorldManagerServer mWorldMgr;
 
-	std::vector<Client*> mClients;
+	ClientInfoMap mClients;
+
+	Ogre::String mName;
+	Ogre::ushort mMaxPlayers;
+	Ogre::ushort mNumPlayers;
 
 public:
 	Server(const Ogre::String& name);
 	~Server();
 	
 	void sendServerInfo(sockaddr_in* addr, int len);
+	void sendLoadMap(sockaddr_in* addr, int len);
 	void sendChatMessageToAll(const Ogre::String& text);
+
+	bool loadMap(const Ogre::String& mapName);
 
 	void checkRecv();
 };
