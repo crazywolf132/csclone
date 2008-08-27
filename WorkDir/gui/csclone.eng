@@ -25,7 +25,9 @@ Shes_gonna_Blow She's gonna Blow!
 Negative Negative
 Enemy_Down Enemy Down
 
+OK OK
 Cancel Cancel
+Apply Применить
 
 Resume_game Resume game
 Disconnect Disconnect
@@ -34,3 +36,6 @@ New_Game New Game
 Find_Servers Find Servers
 Options Options
 Exit Exit
+
+Quit_game Quit game
+Quit_confirm Do you wish to stop playing now?

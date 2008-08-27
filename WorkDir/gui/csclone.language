@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Language">
+
+    <Language default="English">
+        <Info name="English">
+            <Source>csclone.eng</Source>
+        </Info>
+        <Info name="Russian">
+            <Source>csclone.rus</Source>
+        </Info>
+    </Language>
+
+</MyGUI>

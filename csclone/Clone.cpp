@@ -90,6 +90,12 @@ private:
 		}
 	}
 
+	void centerWidget(MyGUI::WidgetPtr widget)
+	{
+		widget->setPosition(mGUI->getViewWidth()/2 - widget->getWidth()/2,
+			mGUI->getViewHeight()/2 - widget->getHeight()/2);
+	}
+
 	void notifyResumeGame(MyGUI::WidgetPtr sender)
 	{
 	}
@@ -115,10 +121,14 @@ private:
 
 	void notifyOptions(MyGUI::WidgetPtr sender)
 	{
+		mGUI->findWidgetT("Options")->show();
 	}
 
 	void notifyExit(MyGUI::WidgetPtr sender)
 	{
+		MyGUI::WidgetPtr window = mGUI->findWidgetT("Quit");
+		window->show();
+		MyGUI::InputManager::getInstance().addWidgetModal(window);
 	}
 
 	void notifyServersClose(MyGUI::WidgetPtr sender, const std::string& name)
@@ -135,6 +145,32 @@ private:
 			return;
 		const Ogre::UTFString& serverName = list->getItem(sel);
 		mClient->connectToServer(serverName);
+	}
+
+	void notifyOptionsOK(MyGUI::WidgetPtr sender)
+	{
+		mGUI->findWidgetT("Options")->hide();
+	}
+
+	void notifyOptionsCancel(MyGUI::WidgetPtr sender)
+	{
+		mGUI->findWidgetT("Options")->hide();
+	}
+
+	void notifyOptionsApply(MyGUI::WidgetPtr sender)
+	{
+	}
+
+	void notifyQuitQuit(MyGUI::WidgetPtr sender)
+	{
+		mExit = true;
+	}
+
+	void notifyQuitCancel(MyGUI::WidgetPtr sender)
+	{
+		MyGUI::WidgetPtr window = mGUI->findWidgetT("Quit");
+		window->hide();
+		MyGUI::InputManager::getInstance().removeWidgetModal(window);
 	}
 
 public:
@@ -352,6 +388,11 @@ public:
 		mGUI = new MyGUI::Gui;
 		mGUI->initialise(mWindow, "csclone.gui");
 
+		centerWidget(mGUI->findWidgetT("Create"));
+		centerWidget(mGUI->findWidgetT("Servers"));
+		centerWidget(mGUI->findWidgetT("Options"));
+		centerWidget(mGUI->findWidgetT("Quit"));
+
 		MyGUI::MultiListPtr list = mGUI->findWidget<MyGUI::MultiList>("Servers/List");
 		list->addColumn(175, "Name");
 		list->addColumn(85, "Map");
@@ -400,8 +441,15 @@ public:
 		//servers dialog
 		mGUI->findWidget<MyGUI::Window>("Servers")->eventWindowButtonPressed = MyGUI::newDelegate(this, &Application::notifyServersClose);
 		mGUI->findWidget<MyGUI::Button>("Servers/Connect")->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyServersConnect);
+		//options dialog
+		mGUI->findWidget<MyGUI::Button>("Options/OK")->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyOptionsOK);
+		mGUI->findWidget<MyGUI::Button>("Options/Cancel")->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyOptionsCancel);
+		mGUI->findWidget<MyGUI::Button>("Options/Apply")->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyOptionsApply);
 		//create dialog
 		//mGUI->findWidget<MyGUI::Window>("Create/Cancel")->eventWindowButtonPressed = MyGUI::newDelegate(this, &Application::notifyCreateCancel);
+		//quit dialog
+		mGUI->findWidget<MyGUI::Button>("Quit/Quit")->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyQuitQuit);
+		mGUI->findWidget<MyGUI::Button>("Quit/Cancel")->eventMouseButtonClick = MyGUI::newDelegate(this, &Application::notifyQuitCancel);
 //Initializing Game
 		Socket::initialise();
 		Ogre::LogManager::getSingletonPtr()->logMessage("*-*-* Initialising Game ***");

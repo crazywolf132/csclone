@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="Font">
-	<Font name="Font" source="verdana.ttf" source2="" size="14" resolution="50" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="5" offset_height="1">
+	<Font name="Font" source="verdana.ttf" source2="" size="16" resolution="60" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="5" offset_height="1">
 		<Code range="33 126"/>
 		<Code range="1025 1105"/>
 		<Code range="8470 8470" help="�"/>
@@ -9,16 +9,7 @@
 		<Code hide="1026 1039"/>
 		<Code hide="1104"/>
 	</Font>
-	<Font name="MenuFont" source="verdanab.ttf" source2="" size="18" resolution="100" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="5" offset_height="1">
-		<Code range="33 126"/>
-		<Code range="1025 1105"/>
-		<Code range="8470 8470" help="�"/>
-		<Code hide="128"/>
-		<Code hide="1026 1039"/>
-		<Code hide="1104"/>
-	</Font>
-	
-	<Font name="MyGUI_CoreFont.18" source="verdana.ttf" source2="micross.ttf" size="12" resolution="100" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="5" offset_height="1">
+	<Font name="MenuFont" source="verdanab.ttf" source2="" size="18" resolution="100" antialias_colour="false" space_width="8" tab_width="8" cursor_width="2" distance="5" offset_height="1">
 		<Code range="33 126"/>
 		<Code range="1025 1105"/>
 		<Code range="8470 8470" help="�"/>
