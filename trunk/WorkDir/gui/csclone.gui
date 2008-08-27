@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI>
+    <MyGUI type="List">
+	    <List file="gui.lang" group="General"/>
+	    <List file="core.language" group="General"/>
+	    <List file="csclone.language" group="General"/>
+	    <List file="gui.layer" group="General"/>
+	    <List file="core.skin" group="General"/>
+	    <List file="core.font" group="General"/>
+	    <List file="gui.font" group="General"/>
+	    <List file="core.pointer" group="General"/>
+
+	    <List file="core_new.skin" group="General"/>
+	    <List file="core_new.pointer" group="General"/>
+		
+	    <List file="gui.skin" group="General"/>
+
+		<List file="csclone.layout" group="General"/>
+    </MyGUI>
+</MyGUI>
