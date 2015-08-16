@@ -1,0 +1,1 @@
+This is clone of Half-Life: Counter-Strike. Used Ogre3d for graphics, OpenAL for audio and ODE for physics.
